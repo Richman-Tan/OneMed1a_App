@@ -1,6 +1,8 @@
 // src/app/profile/page.jsx
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { logout } from "../actions/auth";
+import CopyButton from "@/app/media-details-components/CopyButton";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -148,12 +150,14 @@ export default async function ProfilePage() {
             <Row label="Plan" value={profile?.plan || "Free"} />
             <Row label="User ID" value={userId} copyable />
             <div className="pt-2">
-              <a
-                href="/logout"
-                className="inline-flex items-center rounded-xl border border-slate-300 px-4 py-2 hover:bg-slate-50 transition"
-              >
-                Sign out
-              </a>
+              <form action={logout}>
+                <button
+                  type="submit"
+                  className="inline-flex items-center rounded-xl border border-slate-300 px-4 py-2 hover:bg-slate-50 transition"
+                >
+                  Sign out
+                </button>
+              </form>
             </div>
           </div>
         </Card>
@@ -237,16 +241,18 @@ function Card({ title, children }) {
   );
 }
 
+
 function Row({ label, value, copyable }) {
   return (
     <div className="flex items-center justify-between gap-4">
       <span className="text-slate-600">{label}</span>
       <span className="text-slate-900 font-medium break-all">{value}</span>
-      {copyable ? (
-        <form action={`/api/copy?text=${encodeURIComponent(value || "")}`}>
-          <button type="submit" className="text-xs text-slate-600 hover:text-black">Copy</button>
-        </form>
-      ) : null}
+     {copyable ? (
+       <form action={`/api/copy?text=${encodeURIComponent(value || "")}`}>
+         <button type="submit" className="text-xs text-slate-600 hover:text-black">Copy</button>
+       </form>
+     ) : null}
+     {copyable ? <CopyButton text={value || ''} /> : null}
     </div>
   );
 }
