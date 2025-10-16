@@ -43,7 +43,7 @@ function pickCover(posterPath, backdropPath, posterSize = "w342", backdropSize =
  * @param {{ params: Promise<{ mediaType: string }> }} props
  */
 export default async function MediaPage({ params }) {
-  const { mediaType: rawMediaType } = await params; // <-- await params
+  const { mediaType: rawMediaType } = await params;
   const mediaTypeKey = normalizeTypeKey(rawMediaType);
   const wantedType = typeMap[mediaTypeKey];
 
