@@ -22,7 +22,7 @@ const typeMap = {
   movie: "MOVIE",
   tv: "TV",
   music: "MUSIC",
-  books: "BOOKS", // <-- fixed
+  books: "BOOKS",
 };
 
 const toYear = (dateStr) => (dateStr ? Number(String(dateStr).slice(0, 4)) : undefined);
